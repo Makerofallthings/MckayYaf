@@ -1,0 +1,58 @@
+{
+  "name": "TeamMember",
+  "type": "object",
+  "properties": {
+    "position_key": {
+      "type": "string",
+      "enum": [
+        "president",
+        "vice_president",
+        "secretary",
+        "treasurer",
+        "social_media",
+        "events_coordinator"
+      ],
+      "description": "Fixed position identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Team member name"
+    },
+    "role": {
+      "type": "string",
+      "description": "Role/position display name"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Short biography"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Profile photo URL"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "linkedin": {
+      "type": "string",
+      "description": "LinkedIn URL"
+    },
+    "twitter": {
+      "type": "string",
+      "description": "Twitter URL"
+    },
+    "instagram": {
+      "type": "string",
+      "description": "Instagram URL"
+    },
+    "order": {
+      "type": "number",
+      "description": "Display order"
+    }
+  },
+  "required": [
+    "position_key",
+    "role"
+  ]
+}

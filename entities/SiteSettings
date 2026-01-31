@@ -1,0 +1,43 @@
+{
+  "name": "SiteSettings",
+  "type": "object",
+  "properties": {
+    "active_members": {
+      "type": "number",
+      "description": "Number of active chapter members"
+    },
+    "events_this_year": {
+      "type": "number",
+      "description": "Number of events held this year"
+    },
+    "guest_speakers": {
+      "type": "number",
+      "description": "Number of guest speakers this year"
+    },
+    "year_founded": {
+      "type": "number",
+      "description": "Year the chapter was founded"
+    },
+    "mission_text": {
+      "type": "string",
+      "description": "Our Mission card text"
+    },
+    "vision_text": {
+      "type": "string",
+      "description": "Our Vision card text"
+    },
+    "values_text": {
+      "type": "string",
+      "description": "Our Values card text"
+    },
+    "privacy_policy": {
+      "type": "string",
+      "description": "Privacy policy disclaimer text"
+    },
+    "admin_password": {
+      "type": "string",
+      "description": "Admin panel password"
+    }
+  },
+  "required": []
+}

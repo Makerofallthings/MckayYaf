@@ -1,0 +1,37 @@
+{
+  "name": "ContactInfo",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "phone",
+        "address",
+        "hours"
+      ],
+      "description": "Type of contact info"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title"
+    },
+    "details": {
+      "type": "string",
+      "description": "Main details text"
+    },
+    "description": {
+      "type": "string",
+      "description": "Secondary description"
+    },
+    "href": {
+      "type": "string",
+      "description": "Link URL if applicable"
+    }
+  },
+  "required": [
+    "type",
+    "title",
+    "details"
+  ]
+}
