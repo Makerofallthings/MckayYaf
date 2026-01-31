@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { rsvpEvent } from '@/lib/firebaseClient';
+// removed unused rsvpEvent import (using SheetMonkey POST instead)
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -40,12 +40,35 @@ const RSVPForm = ({ event, onClose }) => {
 
     setIsSubmitting(true);
     try {
-      await rsvpEvent({ eventId: event.id, eventTitle: event.title, ...formData });
+      const payload = {
+        name: formData.name || '',
+        email: formData.email || '',
+        phone: formData.phone || '',
+        age: formData.age || '',
+        grade: formData.grade || '',
+        dietary: formData.dietary || '',
+        eventTitle: event.title,
+        submittedAt: new Date().toISOString(),
+      };
+
+      const res = await fetch('https://api.sheetmonkey.io/form/pwLHfpu93ecuciRnxzVbDh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`SheetMonkey POST failed: ${res.status} ${res.statusText} ${text}`);
+      }
+
+      // success
+      setSubmitted(true);
     } catch (err) {
       console.error('RSVP error', err);
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
-    setSubmitted(true);
   };
 
   if (submitted) {
@@ -67,11 +90,8 @@ const RSVPForm = ({ event, onClose }) => {
           <div className="w-20 h-20 bg-green-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="w-10 h-10 text-green-500" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-3">You're Registered!</h3>
-          <p className="text-slate-400 mb-6">
-            Thank you for registering for <span className="text-white font-medium">{event.title}</span>. 
-            We've sent a confirmation email to {formData.email}.
-          </p>
+          <h3 className="text-2xl font-bold text-white mb-3">RSVP Received!</h3>
+          <p className="text-slate-400 mb-6">You will receive an email reminder before the event</p>
           <div className="bg-slate-700/50 rounded-xl p-4 mb-6">
             <div className="flex items-center gap-3 text-slate-300 mb-2">
               <Calendar className="w-5 h-5 text-red-500" />
